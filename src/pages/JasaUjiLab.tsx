@@ -1,7 +1,11 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Microscope, FlaskConical, Atom, Beaker, Scan, Waves } from "lucide-react";
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { Link } from "react-router-dom";
+import { ArrowRight, Microscope, FlaskConical, Atom, Beaker, Scan, Waves, FileText, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 
 const karakterisasiServices = [
   {
@@ -112,11 +116,20 @@ const JasaUjiLab = () => {
               Layanan analisis dan karakterisasi material dengan instrumen modern 
               serta didukung oleh tenaga ahli berpengalaman untuk mendukung penelitian dan industri.
             </p>
-            <Button asChild>
-              <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
-                Konsultasi Gratis <ArrowRight className="w-4 h-4 ml-2" />
-              </a>
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild className="bg-green-600 hover:bg-green-700">
+                <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
+                  <WhatsAppIcon className="w-4 h-4 mr-2" />
+                  Konsultasi Gratis
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/quotation">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Request Quotation
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -197,32 +210,85 @@ const JasaUjiLab = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-primary/5">
-        <div className="container text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-            Butuh Layanan Pengujian?
-          </h2>
-          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
-            Konsultasikan kebutuhan riset Anda dengan tim kami. Kami siap membantu 
-            memberikan solusi terbaik untuk pengujian material Anda.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild>
-              <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
-                Hubungi via WhatsApp
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="mailto:ptnahlausmanniaga@gmail.com">
-                Kirim Email
-              </a>
-            </Button>
-          </div>
+      {/* CTA Section - Enhanced */}
+      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary/80 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full" />
+          <div className="absolute bottom-10 right-10 w-48 h-48 border border-white rounded-full" />
+          <div className="absolute top-1/2 left-1/4 w-20 h-20 border border-white rounded-full" />
+        </div>
+        
+        <div className="container relative z-10">
+          <motion.div 
+            className="max-w-3xl mx-auto text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-1.5 mb-6">
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-white text-sm font-medium">Konsultasi Gratis</span>
+            </div>
+            
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Siap Memulai Pengujian Material Anda?
+            </h2>
+            <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+              Tim ahli kami siap membantu Anda mendapatkan hasil analisis yang akurat 
+              dan terpercaya untuk kebutuhan riset maupun industri.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  asChild 
+                  size="lg" 
+                  className="bg-green-500 hover:bg-green-600 text-white shadow-lg shadow-green-500/30"
+                >
+                  <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
+                    <WhatsAppIcon className="w-5 h-5 mr-2" />
+                    Chat via WhatsApp
+                  </a>
+                </Button>
+              </motion.div>
+              
+              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  asChild 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm"
+                >
+                  <Link to="/quotation">
+                    <FileText className="w-5 h-5 mr-2" />
+                    Request Quotation
+                  </Link>
+                </Button>
+              </motion.div>
+            </div>
+
+            <div className="mt-8 flex items-center justify-center gap-6 text-white/70 text-sm">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-400" />
+                Respon Cepat
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-400" />
+                Hasil Akurat
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-green-400" />
+                Harga Kompetitif
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
       <Footer />
+      <FloatingWhatsApp />
     </main>
   );
 };
