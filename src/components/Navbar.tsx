@@ -1,18 +1,29 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Beranda", href: "#beranda" },
-  { label: "Produk", href: "#produk" },
-  { label: "Layanan", href: "#layanan" },
-  { label: "Tentang Kami", href: "#tentang" },
-  { label: "Kontak", href: "#kontak" },
+  { label: "Beranda", href: "/#beranda", isAnchor: true },
+  { label: "Produk", href: "/#produk", isAnchor: true },
+  { 
+    label: "Layanan", 
+    href: "/#layanan", 
+    isAnchor: true,
+    hasDropdown: true,
+    dropdownItems: [
+      { label: "Jasa Uji Lab", href: "/jasa-uji-lab" },
+    ]
+  },
+  { label: "Tentang Kami", href: "/#tentang", isAnchor: true },
+  { label: "Kontak", href: "/#kontak", isAnchor: true },
 ];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +32,23 @@ export const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const handleNavClick = (href: string, isAnchor: boolean) => {
+    setIsMobileMenuOpen(false);
+    setOpenDropdown(null);
+    
+    if (isAnchor && location.pathname !== "/") {
+      // If we're not on home page, navigate to home first
+      window.location.href = href;
+    } else if (isAnchor) {
+      // If we're on home page, just scroll
+      const id = href.replace("/#", "#");
+      const element = document.querySelector(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <header
@@ -31,25 +59,68 @@ export const Navbar = () => {
       <div className="container">
         <nav className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#beranda" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
               <span className="text-sm font-bold text-primary-foreground">NS</span>
             </div>
             <span className="text-lg font-semibold text-foreground">
               Nuna Scientific
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <ul className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
-                >
-                  {item.label}
-                </a>
+              <li key={item.href} className="relative">
+                {item.hasDropdown ? (
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setOpenDropdown(item.label)}
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
+                    <button
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                    >
+                      {item.label}
+                      <ChevronDown className="w-3 h-3" />
+                    </button>
+                    {openDropdown === item.label && (
+                      <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg py-2 min-w-[160px] z-50">
+                        <a
+                          href={item.href}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleNavClick(item.href, item.isAnchor);
+                          }}
+                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
+                        >
+                          Semua Layanan
+                        </a>
+                        {item.dropdownItems?.map((dropItem) => (
+                          <Link
+                            key={dropItem.href}
+                            to={dropItem.href}
+                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
+                            onClick={() => setOpenDropdown(null)}
+                          >
+                            {dropItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <a
+                    href={item.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.href, item.isAnchor);
+                    }}
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                )}
               </li>
             ))}
           </ul>
@@ -88,13 +159,43 @@ export const Navbar = () => {
             <ul className="flex flex-col gap-3">
               {navItems.map((item) => (
                 <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-foreground text-sm hover:text-primary transition-colors"
-                  >
-                    {item.label}
-                  </a>
+                  {item.hasDropdown ? (
+                    <div>
+                      <a
+                        href={item.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavClick(item.href, item.isAnchor);
+                        }}
+                        className="text-foreground text-sm hover:text-primary transition-colors"
+                      >
+                        {item.label}
+                      </a>
+                      <div className="ml-4 mt-2 space-y-2">
+                        {item.dropdownItems?.map((dropItem) => (
+                          <Link
+                            key={dropItem.href}
+                            to={dropItem.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                          >
+                            → {dropItem.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ) : (
+                    <a
+                      href={item.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleNavClick(item.href, item.isAnchor);
+                      }}
+                      className="text-foreground text-sm hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
