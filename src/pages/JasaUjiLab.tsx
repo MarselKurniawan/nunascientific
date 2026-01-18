@@ -210,14 +210,19 @@ const JasaUjiLab = () => {
         </div>
       </section>
 
-      {/* CTA Section - Enhanced */}
-      <section className="py-20 bg-gradient-to-br from-primary via-primary to-primary/80 relative overflow-hidden">
+      {/* CTA Section - Enhanced with Blue Theme */}
+      <section className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0f4c81 0%, #1a6bb3 25%, #2184d4 50%, #1a6bb3 75%, #0f4c81 100%)' }}>
         {/* Decorative elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-32 h-32 border border-white rounded-full" />
-          <div className="absolute bottom-10 right-10 w-48 h-48 border border-white rounded-full" />
-          <div className="absolute top-1/2 left-1/4 w-20 h-20 border border-white rounded-full" />
+        <div className="absolute inset-0">
+          <div className="absolute top-10 left-10 w-32 h-32 border-2 border-white/20 rounded-full animate-pulse" />
+          <div className="absolute bottom-10 right-10 w-48 h-48 border-2 border-white/20 rounded-full" />
+          <div className="absolute top-1/2 left-1/4 w-20 h-20 border-2 border-white/10 rounded-full" />
+          <div className="absolute top-20 right-1/4 w-16 h-16 bg-white/5 rounded-full" />
+          <div className="absolute bottom-20 left-1/3 w-24 h-24 bg-white/5 rounded-full" />
         </div>
+        
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         
         <div className="container relative z-10">
           <motion.div 
