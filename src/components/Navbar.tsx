@@ -13,6 +13,7 @@ const navItems = [
     hasDropdown: true,
     dropdownItems: [
       { label: "Jasa Uji Lab", href: "/jasa-uji-lab" },
+      { label: "Request Quotation", href: "/quotation" },
     ]
   },
   { label: "Tentang Kami", href: "/#tentang", isAnchor: true },
