@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, FileText } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const highlights = [
   "Instrumen Lab Berkualitas",
@@ -42,9 +43,10 @@ export const HeroSection = () => {
               </a>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
-                Konsultasi Gratis
-              </a>
+              <Link to="/quotation">
+                <FileText className="w-4 h-4 mr-1" />
+                Hubungi Kami
+              </Link>
             </Button>
           </div>
         </div>
