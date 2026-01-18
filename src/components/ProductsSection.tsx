@@ -1,4 +1,5 @@
 import { Microscope, FlaskConical, Atom, TestTube2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 import instrumentImg from "@/assets/instruments/microscope.jpg";
 import glasswareImg from "@/assets/instruments/glassware.jpg";
@@ -37,11 +38,39 @@ const categories = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1] as const,
+    },
+  },
+};
+
 export const ProductsSection = () => {
   return (
     <section id="produk" className="py-16 bg-background">
       <div className="container">
-        <div className="mb-10">
+        <motion.div 
+          className="mb-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
           <p className="text-sm font-medium text-primary mb-2">Produk & Layanan</p>
           <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
             Solusi Lengkap untuk Laboratorium
@@ -49,14 +78,21 @@ export const ProductsSection = () => {
           <p className="text-muted-foreground max-w-2xl">
             Kami menyediakan berbagai peralatan, bahan, dan layanan untuk kebutuhan riset dan industri.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <motion.div 
+          className="grid md:grid-cols-2 gap-6"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {categories.map((category) => {
             const Icon = category.icon;
             return (
-              <div
+              <motion.div
                 key={category.title}
+                variants={itemVariants}
                 className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/30 transition-colors"
               >
                 {/* Image Section */}
@@ -64,7 +100,7 @@ export const ProductsSection = () => {
                   <img 
                     src={category.image} 
                     alt={category.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                   />
                 </div>
                 
@@ -104,10 +140,10 @@ export const ProductsSection = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
