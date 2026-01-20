@@ -28,7 +28,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
     },
   },
 };
@@ -67,7 +67,7 @@ export const ServicesSection = () => {
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 md:gap-8"
+          className="grid grid-cols-2 md:grid-cols-3 gap-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -77,35 +77,23 @@ export const ServicesSection = () => {
             <motion.div
               key={service.name}
               variants={itemVariants}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-              className="flex flex-col items-center group cursor-default"
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/30 hover:shadow-md transition-all cursor-default group"
             >
-              {/* Circular Image Frame */}
-              <div className="relative mb-3">
-                {/* Outer ring with gradient */}
-                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-primary/80 to-primary/60 p-1 -m-1">
-                  <div className="w-full h-full rounded-full bg-background" />
-                </div>
-                
-                {/* Image container */}
-                <div className="relative w-24 h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden border-4 border-primary/20 group-hover:border-primary/50 transition-colors shadow-lg">
-                  <img 
-                    src={service.image} 
-                    alt={service.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                
-                {/* Label badge */}
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-bold px-3 py-1 rounded-full shadow-md whitespace-nowrap">
-                  {service.name}
-                </div>
+              {/* Image */}
+              <div className="h-32 md:h-40 overflow-hidden">
+                <img 
+                  src={service.image} 
+                  alt={service.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
               </div>
               
-              {/* Description */}
-              <p className="text-xs md:text-sm text-muted-foreground text-center mt-3 px-2">
-                {service.desc}
-              </p>
+              {/* Content */}
+              <div className="p-4">
+                <p className="font-semibold text-foreground text-sm">{service.name}</p>
+                <p className="text-xs text-muted-foreground mt-1">{service.desc}</p>
+              </div>
             </motion.div>
           ))}
         </motion.div>
