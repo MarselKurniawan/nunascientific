@@ -5,7 +5,15 @@ import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
   { label: "Beranda", href: "/#beranda", isAnchor: true },
-  { label: "Produk", href: "/#produk", isAnchor: true },
+  { 
+    label: "Produk", 
+    href: "/#produk", 
+    isAnchor: true,
+    hasDropdown: true,
+    dropdownItems: [
+      { label: "Katalog Produk", href: "/katalog" },
+    ]
+  },
   { 
     label: "Layanan", 
     href: "/#layanan", 
