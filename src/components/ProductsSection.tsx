@@ -1,5 +1,7 @@
-import { Microscope, FlaskConical, Atom, TestTube2 } from "lucide-react";
+import { Microscope, FlaskConical, Atom, TestTube2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 import instrumentImg from "@/assets/instruments/microscope.jpg";
 import glasswareImg from "@/assets/instruments/glassware.jpg";
@@ -143,6 +145,22 @@ export const ProductsSection = () => {
               </motion.div>
             );
           })}
+        </motion.div>
+
+        {/* CTA Button */}
+        <motion.div 
+          className="text-center mt-10"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Button size="lg" asChild>
+            <Link to="/katalog" className="inline-flex items-center gap-2">
+              Lihat Katalog Lengkap
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
