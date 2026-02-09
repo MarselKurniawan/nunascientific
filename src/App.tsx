@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import JasaUjiLab from "./pages/JasaUjiLab";
 import Quotation from "./pages/Quotation";
 import Katalog from "./pages/Katalog";
+import ProductDetail from "./pages/ProductDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/katalog" element={<Katalog />} />
+          <Route path="/produk/:id" element={<ProductDetail />} />
           <Route path="/jasa-uji-lab" element={<JasaUjiLab />} />
           <Route path="/quotation" element={<Quotation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
