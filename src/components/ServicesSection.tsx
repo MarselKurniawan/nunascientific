@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
+import { ArrowRight, Beaker } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-// Import service images
 import xrdImg from "@/assets/services/xrd.jpg";
 import xrfImg from "@/assets/services/xrf.jpg";
 import gcmsImg from "@/assets/services/gcms.jpg";
@@ -27,9 +29,7 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.08,
-    },
+    transition: { staggerChildren: 0.06 },
   },
 };
 
@@ -39,35 +39,35 @@ const itemVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: {
-      duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1] as const,
-    },
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
 
 export const ServicesSection = () => {
   return (
-    <section id="layanan" className="py-16 bg-muted">
+    <section id="layanan" className="py-20 bg-muted/50">
       <div className="container">
-        <motion.div 
-          className="mb-10"
+        <motion.div
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm font-medium text-primary mb-2">Jasa Pengujian</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+            <Beaker className="w-4 h-4" />
+            Jasa Pengujian
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Layanan Pengujian & Analisa Material
           </h2>
-          <p className="text-muted-foreground max-w-2xl">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Pengujian material dengan teknologi terkini dan hasil yang akurat untuk kebutuhan riset dan industri Anda.
           </p>
         </motion.div>
 
-        <motion.div 
-          className="grid grid-cols-2 md:grid-cols-3 gap-3"
+        <motion.div
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -77,25 +77,40 @@ export const ServicesSection = () => {
             <motion.div
               key={service.name}
               variants={itemVariants}
-              whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className="bg-card border border-border rounded-lg overflow-hidden hover:border-primary/30 hover:shadow-md transition-all cursor-default group"
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all cursor-default group"
             >
-              {/* Image */}
-              <div className="h-32 md:h-40 overflow-hidden">
-                <img 
-                  src={service.image} 
+              <div className="h-36 md:h-44 overflow-hidden relative">
+                <img
+                  src={service.image}
                   alt={service.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
-              
-              {/* Content */}
-              <div className="p-4">
-                <p className="font-semibold text-foreground text-sm">{service.name}</p>
-                <p className="text-xs text-muted-foreground mt-1">{service.desc}</p>
+              <div className="p-4 md:p-5">
+                <p className="font-bold text-foreground text-base mb-1">{service.name}</p>
+                <p className="text-sm text-muted-foreground">{service.desc}</p>
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          className="text-center mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          <Button size="lg" className="px-8 font-semibold shadow-md shadow-primary/20" asChild>
+            <Link to="/jasa-uji-lab" className="inline-flex items-center gap-2">
+              Lihat Semua Layanan
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

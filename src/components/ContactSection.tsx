@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { MapPin, Phone, Mail, Clock, MessageCircle } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, MessageCircle, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
 const contactInfo = [
@@ -27,76 +27,59 @@ const contactInfo = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: [0.25, 0.1, 0.25, 1] as const,
-    },
-  },
-};
-
 export const ContactSection = () => {
   return (
-    <section id="kontak" className="py-16 bg-muted">
+    <section id="kontak" className="py-20 bg-muted/50">
       <div className="container">
-        <motion.div 
-          className="mb-10"
+        <motion.div
+          className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm font-medium text-primary mb-2">Kontak</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+            <Send className="w-4 h-4" />
+            Kontak
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Hubungi Kami
           </h2>
-          <p className="text-muted-foreground max-w-2xl">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Hubungi kami untuk konsultasi, pemesanan, atau informasi lebih lanjut.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          <motion.div 
+          <motion.div
             className="space-y-4"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
           >
-            {contactInfo.map((info) => {
+            {contactInfo.map((info, i) => {
               const Icon = info.icon;
               return (
                 <motion.div
                   key={info.label}
-                  variants={itemVariants}
-                  whileHover={{ x: 4, transition: { duration: 0.2 } }}
-                  className="flex gap-3 p-4 bg-card border border-border rounded-lg hover:border-primary/30 transition-colors"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  className="flex gap-4 p-5 bg-card border border-border rounded-2xl hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all"
                 >
-                  <div className="w-9 h-9 bg-primary/10 rounded flex items-center justify-center shrink-0">
-                    <Icon className="w-4 h-4 text-primary" />
+                  <div className="w-11 h-11 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                    <Icon className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">{info.label}</p>
+                    <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">{info.label}</p>
                     {info.href ? (
-                      <a href={info.href} className="text-sm text-foreground hover:text-primary transition-colors">
+                      <a href={info.href} className="text-sm font-medium text-foreground hover:text-primary transition-colors">
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-sm text-foreground">{info.value}</p>
+                      <p className="text-sm font-medium text-foreground">{info.value}</p>
                     )}
                   </div>
                 </motion.div>
@@ -104,27 +87,28 @@ export const ContactSection = () => {
             })}
 
             <motion.div
-              variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.4, duration: 0.4 }}
             >
-              <Button variant="whatsapp" size="lg" className="w-full mt-4" asChild>
+              <Button variant="whatsapp" size="lg" className="w-full mt-2 shadow-lg" asChild>
                 <a
                   href="https://wa.me/6281281181860?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20dan%20layanan%20Nuna%20Scientific"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <MessageCircle className="w-5 h-5 mr-2" />
                   Chat via WhatsApp
                 </a>
               </Button>
             </motion.div>
           </motion.div>
 
-          <motion.div 
-            className="h-80 lg:h-auto rounded-lg overflow-hidden border border-border"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+          <motion.div
+            className="h-96 lg:h-auto rounded-2xl overflow-hidden border border-border shadow-lg"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >

@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { Handshake } from "lucide-react";
+
 const brands = [
   { name: "PerkinElmer", url: "https://majabintang.com/wp-content/uploads/2018/12/Perkin_Brand_250x120.jpg" },
   { name: "COXEM", url: "https://majabintang.com/wp-content/uploads/2019/12/coxem_Brand_250x120.png" },
@@ -23,30 +26,68 @@ const brands = [
   { name: "Restek", url: "https://majabintang.com/wp-content/uploads/2022/09/Restek_Brand_250x120.jpg" },
 ];
 
+// Duplicate for seamless loop
+const marqueeItems = [...brands, ...brands];
+
 export const BrandsSection = () => {
   return (
-    <section className="py-16 bg-background">
+    <section className="py-20 bg-muted/30 overflow-hidden">
       <div className="container">
-        <div className="text-center mb-10">
-          <p className="text-sm font-medium text-primary mb-2">Partner Kami</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
-            Our Brands
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+            <Handshake className="w-4 h-4" />
+            Partner Kami
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Brand Terpercaya Dunia
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Kami bermitra dengan brand-brand terkemuka dunia untuk menyediakan instrumen laboratorium berkualitas tinggi.
           </p>
-        </div>
+        </motion.div>
+      </div>
 
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {brands.map((brand) => (
+      {/* Marquee Row 1 */}
+      <div className="relative">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+        <div className="flex gap-6 animate-marquee">
+          {marqueeItems.map((brand, i) => (
             <div
-              key={brand.name}
-              className="bg-card border border-border rounded-lg p-4 flex items-center justify-center hover:border-primary/30 hover:shadow-sm transition-all"
+              key={`${brand.name}-${i}`}
+              className="shrink-0 bg-card border border-border rounded-xl px-8 py-5 flex items-center justify-center hover:border-primary/30 hover:shadow-md transition-all min-w-[180px] h-[80px]"
             >
               <img
                 src={brand.url}
                 alt={brand.name}
-                className="max-h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all"
+                className="max-h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Marquee Row 2 - Reverse */}
+      <div className="relative mt-6">
+        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-background to-transparent z-10" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-background to-transparent z-10" />
+        <div className="flex gap-6 animate-marquee-reverse">
+          {[...marqueeItems].reverse().map((brand, i) => (
+            <div
+              key={`${brand.name}-rev-${i}`}
+              className="shrink-0 bg-card border border-border rounded-xl px-8 py-5 flex items-center justify-center hover:border-primary/30 hover:shadow-md transition-all min-w-[180px] h-[80px]"
+            >
+              <img
+                src={brand.url}
+                alt={brand.name}
+                className="max-h-10 w-auto object-contain grayscale hover:grayscale-0 transition-all duration-300"
                 loading="lazy"
               />
             </div>
