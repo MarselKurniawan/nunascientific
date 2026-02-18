@@ -47,10 +47,8 @@ export const Navbar = () => {
     setOpenDropdown(null);
     
     if (isAnchor && location.pathname !== "/") {
-      // If we're not on home page, navigate to home first
       window.location.href = href;
     } else if (isAnchor) {
-      // If we're on home page, just scroll
       const id = href.replace("/#", "#");
       const element = document.querySelector(id);
       if (element) {
@@ -61,24 +59,31 @@ export const Navbar = () => {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        isScrolled ? "bg-card shadow-sm border-b border-border" : "bg-card"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-card/95 backdrop-blur-xl shadow-lg shadow-foreground/5 border-b border-border"
+          : "bg-transparent"
       }`}
     >
       <div className="container">
-        <nav className="flex items-center justify-between h-16">
+        <nav className="flex items-center justify-between h-18 py-4">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
+          <Link to="/" className="flex items-center gap-2.5">
+            <div className="w-9 h-9 bg-primary rounded-lg flex items-center justify-center shadow-md shadow-primary/30">
               <span className="text-sm font-bold text-primary-foreground">NS</span>
             </div>
-            <span className="text-lg font-semibold text-foreground">
-              Nuna Scientific
-            </span>
+            <div className="flex flex-col">
+              <span className={`text-lg font-bold leading-tight transition-colors ${isScrolled ? 'text-foreground' : 'text-primary-foreground'}`}>
+                Nuna Scientific
+              </span>
+              <span className={`text-[10px] font-medium leading-tight transition-colors ${isScrolled ? 'text-muted-foreground' : 'text-primary-foreground/60'}`}>
+                PT Nahla Usman Niaga
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-6">
+          <ul className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <li key={item.href} className="relative">
                 {item.hasDropdown ? (
@@ -88,28 +93,32 @@ export const Navbar = () => {
                     onMouseLeave={() => setOpenDropdown(null)}
                   >
                     <button
-                      className="text-sm text-muted-foreground hover:text-primary transition-colors flex items-center gap-1"
+                      className={`text-sm font-medium px-4 py-2 rounded-lg transition-all flex items-center gap-1 ${
+                        isScrolled
+                          ? "text-muted-foreground hover:text-primary hover:bg-muted"
+                          : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                      }`}
                     >
                       {item.label}
-                      <ChevronDown className="w-3 h-3" />
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === item.label ? 'rotate-180' : ''}`} />
                     </button>
                     {openDropdown === item.label && (
-                      <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-lg shadow-lg py-2 min-w-[160px] z-50">
+                      <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-xl shadow-xl shadow-foreground/10 py-2 min-w-[180px] z-50 animate-fade-in">
                         <a
                           href={item.href}
                           onClick={(e) => {
                             e.preventDefault();
                             handleNavClick(item.href, item.isAnchor);
                           }}
-                          className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
+                          className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                         >
-                          Semua Layanan
+                          Semua {item.label}
                         </a>
                         {item.dropdownItems?.map((dropItem) => (
                           <Link
                             key={dropItem.href}
                             to={dropItem.href}
-                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
+                            className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                             onClick={() => setOpenDropdown(null)}
                           >
                             {dropItem.label}
@@ -125,7 +134,11 @@ export const Navbar = () => {
                       e.preventDefault();
                       handleNavClick(item.href, item.isAnchor);
                     }}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                    className={`text-sm font-medium px-4 py-2 rounded-lg transition-all ${
+                      isScrolled
+                        ? "text-muted-foreground hover:text-primary hover:bg-muted"
+                        : "text-primary-foreground/80 hover:text-primary-foreground hover:bg-primary-foreground/10"
+                    }`}
                   >
                     {item.label}
                   </a>
@@ -135,15 +148,17 @@ export const Navbar = () => {
           </ul>
 
           {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href="tel:+6281281181860"
-              className="flex items-center gap-1.5 text-sm text-muted-foreground"
+              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
+                isScrolled ? 'text-muted-foreground hover:text-primary' : 'text-primary-foreground/80 hover:text-primary-foreground'
+              }`}
             >
               <Phone className="w-4 h-4" />
               0812 8118 1860
             </a>
-            <Button size="sm" asChild>
+            <Button size="sm" className="shadow-md shadow-primary/20" asChild>
               <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
                 Hubungi Kami
               </a>
@@ -153,7 +168,9 @@ export const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-foreground"
+            className={`lg:hidden p-2 rounded-lg transition-colors ${
+              isScrolled ? 'text-foreground' : 'text-primary-foreground'
+            }`}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -163,9 +180,9 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-card border-t border-border">
+        <div className="lg:hidden bg-card/98 backdrop-blur-xl border-t border-border animate-fade-in">
           <div className="container py-4">
-            <ul className="flex flex-col gap-3">
+            <ul className="flex flex-col gap-1">
               {navItems.map((item) => (
                 <li key={item.href}>
                   {item.hasDropdown ? (
@@ -176,17 +193,17 @@ export const Navbar = () => {
                           e.preventDefault();
                           handleNavClick(item.href, item.isAnchor);
                         }}
-                        className="text-foreground text-sm hover:text-primary transition-colors"
+                        className="block px-4 py-2.5 text-foreground text-sm font-medium hover:text-primary hover:bg-muted rounded-lg transition-colors"
                       >
                         {item.label}
                       </a>
-                      <div className="ml-4 mt-2 space-y-2">
+                      <div className="ml-4 space-y-1">
                         {item.dropdownItems?.map((dropItem) => (
                           <Link
                             key={dropItem.href}
                             to={dropItem.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-sm text-muted-foreground hover:text-primary transition-colors"
+                            className="block px-4 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-muted rounded-lg transition-colors"
                           >
                             → {dropItem.label}
                           </Link>
@@ -200,7 +217,7 @@ export const Navbar = () => {
                         e.preventDefault();
                         handleNavClick(item.href, item.isAnchor);
                       }}
-                      className="text-foreground text-sm hover:text-primary transition-colors"
+                      className="block px-4 py-2.5 text-foreground text-sm font-medium hover:text-primary hover:bg-muted rounded-lg transition-colors"
                     >
                       {item.label}
                     </a>
