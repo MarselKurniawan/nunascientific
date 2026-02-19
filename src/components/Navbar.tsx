@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 
@@ -21,7 +21,6 @@ const navItems = [
     hasDropdown: true,
     dropdownItems: [
       { label: "Jasa Uji Lab", href: "/jasa-uji-lab" },
-      { label: "Request Quotation", href: "/quotation" },
     ]
   },
   { label: "Tentang Kami", href: "/#tentang", isAnchor: true },
@@ -149,19 +148,10 @@ export const Navbar = () => {
 
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-3">
-            <a
-              href="tel:+6281281181860"
-              className={`flex items-center gap-1.5 text-sm font-medium transition-colors ${
-                isScrolled ? 'text-muted-foreground hover:text-primary' : 'text-primary-foreground/80 hover:text-primary-foreground'
-              }`}
-            >
-              <Phone className="w-4 h-4" />
-              0812 8118 1860
-            </a>
             <Button size="sm" className="shadow-md shadow-primary/20" asChild>
-              <a href="https://wa.me/6281281181860" target="_blank" rel="noopener noreferrer">
+              <Link to="/quotation">
                 Hubungi Kami
-              </a>
+              </Link>
             </Button>
           </div>
 
