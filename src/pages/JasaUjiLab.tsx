@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Button } from "@/components/ui/button";
@@ -139,6 +140,19 @@ const JasaUjiLab = () => {
   return (
     <main className="min-h-screen">
       <Navbar />
+      <SEO
+        title="Jasa Uji Lab - Nuna Scientific | XRD, XRF, SEM, FTIR, GC-MS"
+        description="Layanan pengujian dan analisa material profesional: XRD, XRF, SEM-EDX, TEM, FTIR, GC-MS, BET, PSA. Hasil akurat untuk riset dan industri di Indonesia."
+        canonical="https://nunascientific.com/jasa-uji-lab"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Service",
+          name: "Jasa Uji Laboratorium",
+          provider: { "@type": "Organization", name: "Nuna Scientific" },
+          description: "Layanan pengujian dan analisa material profesional untuk riset dan industri.",
+          areaServed: "ID"
+        }}
+      />
 
       {/* Hero Section - Full width with image bg */}
       <section className="relative min-h-[60vh] flex items-center overflow-hidden">

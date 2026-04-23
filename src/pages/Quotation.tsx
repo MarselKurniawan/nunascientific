@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Button } from "@/components/ui/button";
@@ -30,6 +31,11 @@ const Quotation = () => {
   return (
     <main className="min-h-screen">
       <Navbar />
+      <SEO
+        title="Request Quotation - Nuna Scientific | Dapatkan Penawaran Harga"
+        description="Dapatkan penawaran harga peralatan laboratorium, bahan kimia, dan jasa pengujian lab dari Nuna Scientific. Isi formulir untuk respon cepat."
+        canonical="https://nunascientific.com/quotation"
+      />
       
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-gradient-to-b from-primary/5 to-background">

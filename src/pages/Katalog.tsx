@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Package, TrendingUp, Truck, Shield } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Button } from "@/components/ui/button";
@@ -57,6 +58,11 @@ const Katalog = () => {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
+      <SEO
+        title="Katalog Produk - Nuna Scientific | Peralatan & Bahan Kimia Lab"
+        description="Katalog lengkap peralatan laboratorium, instrumen analitik, glassware, dan bahan kimia berkualitas tinggi dari brand terpercaya. Temukan produk yang Anda butuhkan."
+        canonical="https://nunascientific.com/katalog"
+      />
 
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-gradient-to-b from-primary/5 via-primary/3 to-background">
