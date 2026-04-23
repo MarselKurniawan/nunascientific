@@ -1,7 +1,9 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useMemo } from "react";
 import { motion } from "framer-motion";
 import { ChevronRight, ArrowLeft, MessageCircle, Phone, Mail, Building2 } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
+import { SEO } from "@/components/SEO";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 import { Button } from "@/components/ui/button";
