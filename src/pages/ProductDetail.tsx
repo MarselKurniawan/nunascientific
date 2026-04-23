@@ -54,6 +54,21 @@ const ProductDetail = () => {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
+      <SEO
+        title={`${product.name} - Nuna Scientific`}
+        description={product.description || `Beli ${product.name} berkualitas tinggi di Nuna Scientific. Supplier peralatan laboratorium terpercaya di Indonesia.`}
+        canonical={`https://nunascientific.com/produk/${product.id}`}
+        type="product"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.name,
+          description: product.description,
+          brand: { "@type": "Brand", name: product.brand || "Nuna Scientific" },
+          image: product.image,
+          offers: { "@type": "Offer", availability: "https://schema.org/InStock", priceCurrency: "IDR" }
+        }}
+      />
 
       {/* Breadcrumb */}
       <section className="pt-20 pb-4 border-b border-border bg-muted/30">

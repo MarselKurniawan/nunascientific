@@ -58,6 +58,11 @@ const Katalog = () => {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
+      <SEO
+        title="Katalog Produk - Nuna Scientific | Peralatan & Bahan Kimia Lab"
+        description="Katalog lengkap peralatan laboratorium, instrumen analitik, glassware, dan bahan kimia berkualitas tinggi dari brand terpercaya. Temukan produk yang Anda butuhkan."
+        canonical="https://nunascientific.com/katalog"
+      />
 
       {/* Hero Section */}
       <section className="pt-24 pb-12 bg-gradient-to-b from-primary/5 via-primary/3 to-background">
